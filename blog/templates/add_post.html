@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Add a New Blog Post</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input name="title" placeholder="Post Title" required>
+        <textarea name="content" placeholder="Write your post here..." rows="5" required></textarea>
+        <button type="submit">Publish</button>
+    </form>
+    <a href="/">← Back to Blog</a>
+{% endblock %}

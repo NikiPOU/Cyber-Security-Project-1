@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Personal Blog</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            margin-right: 1rem;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+        .post {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+        }
+        .actions {
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><a href="/">My Personal Blog</a></h1>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

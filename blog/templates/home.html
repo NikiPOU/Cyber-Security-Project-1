@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="actions">
+        <a href="/add/">📝 Add New Post</a>
+        <form method="GET" action="/search/" style="display:inline;">
+            <input name="title" placeholder="Search title..." />
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+    <hr />
+    {% for post in posts %}
+        <div class="post">
+            <h2>{{ post.title }}</h2>
+            <!-- vulnerability 2, remove comments for safe version
+             write <script>alert('attack!!!');</script> in post content-->
+            
+             <!-- {% autoescape off %} -->
+            <p>{{ post.content }}</p>
+            {% endautoescape %}
+            <!-- <div class="actions"> -->
+
+                <!-- Faulty GET request-->
+                <a href="/delete/{{ post.id }}/">🗑 Delete</a>
+
+                
+            </div>
+        </div>
+    {% empty %}
+        <p>No posts yet. Be the first to write something!</p>
+    {% endfor %}
+{% endblock %}

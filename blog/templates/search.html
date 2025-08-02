@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Search Results</h2>
+    {% if results %}
+        {% for row in results %}
+            <div class="post">
+                <h2>{{ row.1 }}</h2>
+                <p>{{ row.2 }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No posts found with that title.</p>
+    {% endif %}
+    <a href="/">← Back to Blog</a>
+{% endblock %}
