@@ -1,0 +1,8 @@
+Django==2.2.0
+requests==2.19.0
+
+# Flaw 5
+# FIX: Comment out below lines.
+
+#Django==4.2.15
+#requests==2.32.3

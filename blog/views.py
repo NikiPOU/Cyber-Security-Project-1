@@ -1,14 +1,12 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from .models import Post
-from django.db import connection  # for SQL injection demo later
+from django.db import connection
 
-# View all posts
 def home(request):
     posts = Post.objects.all()
     return render(request, "home.html", {"posts": posts})
 
-# Add a new post
 def add_post(request):
     if request.method == "POST":
         title = request.POST.get("title")
@@ -17,8 +15,8 @@ def add_post(request):
         return redirect("home")
     return render(request, "add_post.html")
 
-# deleting a post, VULNERABLE
-# correct solution, allow delete only via POST requests, not GET (commented out)
+# FLAW 1, Example 1: deleting a post, VULNERABLE
+# FIX: allow delete only via POST requests, not GET (fix commented out)
 
 def delete_post(request, post_id):
 
@@ -40,3 +38,18 @@ def search(request):
         cursor.execute(f"SELECT * FROM blog_post WHERE title LIKE '%{query}%'")
         results = cursor.fetchall()
     return render(request, "search.html", {"results": results})
+
+from .models import User
+
+def login(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        # bad, Comparing plaintext password directly
+        try:
+            user = User.objects.get(username=username, password=password)
+            return HttpResponse(f"Welcome back, {user.username}!")
+        except User.DoesNotExist:
+            return HttpResponse("Invalid login")
+    return render(request, "login.html")
