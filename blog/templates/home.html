@@ -1,31 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
+
     <div class="actions">
+
+        {% if current_user %}
+            <p>👤 Logged in as: <strong>{{ current_user }}</strong></p>
+            <a href="/logout/">🚪 Logout</a>
+        {% else %}
+            <a href="/login/">🔐 Login</a>
+            <a href="/signup/">🆕 Sign Up</a>
+        {% endif %}
+
         <a href="/add/">📝 Add New Post</a>
+
         <form method="GET" action="/search/" style="display:inline;">
             <input name="title" placeholder="Search title..." />
             <button type="submit">🔍</button>
         </form>
     </div>
+
     <hr />
+
     {% for post in posts %}
         <div class="post">
             <h2>{{ post.title }}</h2>
-            <!-- FLAW 2: remove comments for safe version -->
-            
-            <!-- {% autoescape off %} -->
-            <p>{{ post.content }}</p>
-            <!-- {% endautoescape %} -->
 
-            <!-- <div class="actions"> -->
+            <!-- FLAW 2: Add comments to line 29, 30, 32, remove comment for 31 for safe version -->
+            {% autoescape off %}
+            <p>{{ post.content}}</p>
+            <!--<p>{{ post.content|escape }}</p>-->
+            {% endautoescape %}
 
-                <!-- Faulty GET request-->
+            <div class="actions">
                 <a href="/delete/{{ post.id }}/">🗑 Delete</a>
-
-                
             </div>
         </div>
     {% empty %}
         <p>No posts yet. Be the first to write something!</p>
     {% endfor %}
+
 {% endblock %}
